@@ -27,13 +27,23 @@ const routes = [
     meta: { auth: true },
   },
   {
-    path: "/add",
+    path: "/addQuestion",
     component: () => import("@/views/QuestionAddPage.vue"),
     meta: { auth: true },
   },
   {
     path: "/question/edit/:id",
     component: () => import("@/views/QuestionEditPage.vue"),
+    meta: { auth: true },
+  },
+  {
+    path: "/question/:id/addanswer",
+    component: () => import("@/views/AnswerAddPage.vue"),
+    meta: { auth: true },
+  },
+  {
+    path: "/question/:questionId/answer/edit/:answerId",
+    component: () => import("@/views/AnswerEditPage.vue"),
     meta: { auth: true },
   },
   {

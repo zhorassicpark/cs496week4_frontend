@@ -1,6 +1,6 @@
 <template>
   <div class="contents">
-    <h1 class="page-header">Edit Question</h1>
+    <h1 class="page-header">Submit An Answer!</h1>
     <div class="form-wrapper">
       <form class="form" @submit.prevent="submitForm">
         <div>
@@ -8,8 +8,8 @@
           <input id="title" type="text" v-model="title" />
         </div>
         <div>
-          <label for="content">Content:</label>
-          <textarea id="content" type="text" rows="5" v-model="content" />
+          <label for="contents">Contents:</label>
+          <textarea id="contents" type="text" rows="5" v-model="content" />
           <p
             v-if="!isContentValid"
             class="validation-text warning isContentTooLong"
@@ -17,7 +17,7 @@
             Content length must be less than 250
           </p>
         </div>
-        <button type="submit" class="btn">Edit</button>
+        <button type="submit" class="btn">Create</button>
       </form>
       <p class="log">
         {{ logMessage }}
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { fetchQuestion, editQuestion } from "@/api/questions";
+import { createAnswer } from "@/api/answers";
 
 export default {
   data() {
@@ -44,24 +44,22 @@ export default {
   },
   methods: {
     async submitForm() {
-      const id = this.$route.params.id;
       try {
-        await editQuestion(id, {
+        console.log("BEFORE CREATE ANSWER");
+        const response = await createAnswer({
           title: this.title,
           content: this.content,
+          createdDate: new Date(),
+          userId: this.$store.getters.getUserEmail,
+          questionId: this.$route.params.id,
         });
-        this.$router.push("/qanda");
+        this.$router.push(`/question/${this.$route.params.id}`);
+        console.log(response);
       } catch (error) {
-        console.log(error);
-        this.logMessage = error;
+        console.log(error.response.data.message);
+        this.logMessage = error.response.data.message;
       }
     },
-  },
-  async created() {
-    const id = this.$route.params.id;
-    const { data } = await fetchQuestion(id);
-    this.title = data.data.title;
-    this.content = data.data.content;
   },
 };
 </script>

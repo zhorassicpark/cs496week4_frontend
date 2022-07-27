@@ -2,8 +2,8 @@
   <header>
     <div>
       <router-link :to="logoLink" class="logo">
-        TIL
-        <span v-if="isUserLogin">by {{ $store.state.userName }}</span>
+        QUEUE OVERFLOW
+        <span v-if="isUserLogin">by 악깡버!</span>
       </router-link>
     </div>
     <div class="navigations">

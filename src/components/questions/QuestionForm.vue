@@ -45,9 +45,6 @@ export default {
     isContentValid() {
       return this.content.length <= 200;
     },
-    contentForShow() {
-      return this.content.replaceAll("\n", "<br/>");
-    },
   },
   methods: {
     // async submitForm() {

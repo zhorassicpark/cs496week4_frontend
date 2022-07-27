@@ -1,6 +1,6 @@
 <template>
   <div class="contents">
-    <h1 class="page-header">Edit Question</h1>
+    <h1 class="page-header">Edit Answer</h1>
     <div class="form-wrapper">
       <form class="form" @submit.prevent="submitForm">
         <div>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { fetchQuestion, editQuestion } from "@/api/questions";
+import { fetchAnswer, editAnswer } from "@/api/answers";
 
 export default {
   data() {
@@ -44,13 +44,13 @@ export default {
   },
   methods: {
     async submitForm() {
-      const id = this.$route.params.id;
+      const id = this.$route.params.answerId;
       try {
-        await editQuestion(id, {
+        await editAnswer(id, {
           title: this.title,
           content: this.content,
         });
-        this.$router.push("/qanda");
+        this.$router.push(`/question/${this.$route.params.questionId}`);
       } catch (error) {
         console.log(error);
         this.logMessage = error;
@@ -58,8 +58,8 @@ export default {
     },
   },
   async created() {
-    const id = this.$route.params.id;
-    const { data } = await fetchQuestion(id);
+    const id = this.$route.params.answerId;
+    const { data } = await fetchAnswer(id);
     this.title = data.data.title;
     this.content = data.data.content;
   },
