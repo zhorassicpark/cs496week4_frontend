@@ -23,13 +23,18 @@
       <i class="icon ion-md-create" @click="routeEditPage"></i>
       <i class="icon ion-md-trash" @click="deleteItem"></i>
     </div>
+    <button @click="addComment">Add Comment</button>
   </div>
 </template>
 
 <script>
 import { deleteQuestion, fetchQuestion } from "@/api/questions";
+// import { QCommentListItem } from "@/components/comments/QCommentListItem.vue";
 
 export default {
+  // components: {
+  //   QCommentListItem,
+  // },
   data() {
     return {
       id: "",
@@ -68,6 +73,10 @@ export default {
     },
     routeEditPage() {
       this.$router.push(`/question/edit/${this.id}`);
+    },
+    addComment() {
+      console.log("ADD QCOMMENT");
+      this.$emit("addQComment");
     },
   },
   async created() {
