@@ -10,10 +10,10 @@
       <!-- 1 -->
       <template v-if="isUserLogin">
         <a href="javascript:;" @click="logoutUser" class="logout-button">
-          Logout
+          LOG OUT
         </a>
-        |
-        <router-link to="/QandA"> Q & A </router-link>
+        &nbsp;|&nbsp;
+        <router-link to="/QandA">Q & A</router-link>
       </template>
       <!-- 2 -->
       <template v-else>
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { logoutUserAPI } from "@/api/auth";
 // import { deleteCookie } from "@/utils/cookies";
 
 export default {
@@ -37,15 +38,22 @@ export default {
     },
   },
   methods: {
-    logoutUser() {
-      this.$store.commit("clearUserEmail");
-      this.$store.commit("clearPassword");
-      this.$store.commit("clearUserName");
-      // this.$store.commit("clearUsername");
-      // this.$store.commit("clearToken");
-      // deleteCookie("til_auth");
-      // deleteCookie("til_user");
-      this.$router.push("/login");
+    async logoutUser() {
+      try {
+        console.log("LOGOUT STARTS");
+        await logoutUserAPI(this.$store.getters.getUserEmail);
+        console.log("일단 비동기는 끝인디...");
+        this.$store.commit("clearUserEmail");
+        this.$store.commit("clearPassword");
+        this.$store.commit("clearUserName");
+        // this.$store.commit("clearUsername");
+        // this.$store.commit("clearToken");
+        // deleteCookie("til_auth");
+        // deleteCookie("til_user");
+        this.$router.push("/login");
+      } catch (error) {
+        console.log(error.response.data);
+      }
     },
   },
 };

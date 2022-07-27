@@ -4,7 +4,7 @@ import { setInterceptors } from "./common/interceptors";
 function createInstance() {
   return axios.create({
     // baseURL: process.env.VUE_APP_API_URL,
-    baseURL: "http://localhost:3000/",
+    baseURL: "http://192.249.18.218:80/",
   });
 }
 

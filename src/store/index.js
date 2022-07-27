@@ -19,7 +19,7 @@ import Vuex from "vuex";
 //   saveAuthToCookie,
 //   saveUserToCookie,
 // } from '@/utils/cookies';
-// import { loginUser } from '@/api/auth';
+import { loginUser } from "@/api/auth";
 
 Vue.use(Vuex);
 
@@ -28,43 +28,49 @@ export default new Vuex.Store({
     userEmail: "",
     password: "",
     userName: "",
-    userList: [
-      {
-        userEmail: "a@naver.com",
-        password: "hihi",
-        userName: "abe",
-      },
-    ],
+    // userList: [
+    //   {
+    //     userEmail: "a@naver.com",
+    //     password: "hihi",
+    //     userName: "abe",
+    //   },
+    // ],
   },
   getters: {
     isLogin(state) {
       return state.userEmail !== "";
     },
+    getUserEmail(state) {
+      return state.userEmail;
+    },
+    getUserName(state) {
+      return state.userName;
+    },
   },
   mutations: {
-    addUser(state, userInfo) {
-      state.userList.push(userInfo);
-    },
-    getUserInfo(state, userEmail) {
-      console.log("userEmail: ");
-      console.log(userEmail);
-      const ans = state.userList.find((e) => {
-        console.log("비교");
-        console.log(e);
-        console.log(e.userEmail);
-        console.log(typeof e.userEmail);
-        console.log(userEmail);
-        console.log(typeof userEmail);
-        console.log(userEmail === e.userEmail);
-        return e.userEmail === userEmail;
-      });
-      console.log(ans);
-      if (ans) {
-        state.userEmail = ans.userEmail;
-        state.password = ans.password;
-        state.userName = ans.userName;
-      }
-    },
+    // addUser(state, userInfo) {
+    //   state.userList.push(userInfo);
+    // },
+    // getUserInfo(state, userEmail) {
+    //   console.log("userEmail: ");
+    //   console.log(userEmail);
+    //   const ans = state.userList.find((e) => {
+    //     console.log("비교");
+    //     console.log(e);
+    //     console.log(e.userEmail);
+    //     console.log(typeof e.userEmail);
+    //     console.log(userEmail);
+    //     console.log(typeof userEmail);
+    //     console.log(userEmail === e.userEmail);
+    //     return e.userEmail === userEmail;
+    //   });
+    //   console.log(ans);
+    //   if (ans) {
+    //     state.userEmail = ans.userEmail;
+    //     state.password = ans.password;
+    //     state.userName = ans.userName;
+    //   }
+    // },
     setUserEmail(state, userEmail) {
       state.userEmail = userEmail;
     },
@@ -84,15 +90,15 @@ export default new Vuex.Store({
       state.userName = "";
     },
   },
-  // actions: {
-  //   async LOGIN({ commit }, userData) {
-  //     // const { data } = await loginUser(userData);
-  //     // console.log(data.token);
-  //     // commit("setToken", data.token);
-  //     // commit("setuserEmail", data.user.userEmail);
-  //     // saveAuthToCookie(data.token);
-  //     // saveUserToCookie(data.user.userEmail);
-  //     // return data;
-  //   },
-  // },
+  actions: {
+    async LOGIN({ commit }, userData) {
+      const { data } = await loginUser(userData);
+      // console.log(data.token);
+      // commit("setToken", data.token);
+      commit("setuserEmail", data.user.userEmail);
+      // saveAuthToCookie(data.token);
+      // saveUserToCookie(data.user.userEmail);
+      return data;
+    },
+  },
 });

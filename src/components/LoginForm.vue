@@ -31,6 +31,7 @@
 
 <script>
 import { validateEmail } from "@/utils/validation";
+import { loginUser } from "@/api/auth";
 
 export default {
   data() {
@@ -59,25 +60,30 @@ export default {
           userEmail: this.userEmail,
           password: this.password,
         };
-        // await this.$store.dispatch("LOGIN", userData);
-        console.log("userData");
-        console.log(userData);
-        const userInfo = this.$store.commit("getUserInfo", userData.userEmail);
-        console.log(userInfo);
-        console.log("before checking isLogin...");
-        console.log(this.isUserLogin);
-        if (this.isUserLogin) {
-          console.log("일단 getter는 했다.");
-          this.$router.push("/qanda");
-          console.log("야호1");
-        } else {
-          this.log = "LOG IN FAILURE";
-        }
+        const { data } = await loginUser(userData);
+        console.log("data");
+        console.log(data);
+        this.$store.commit("setUserEmail", data.data.userEmail);
+        this.$store.commit("setUserName", data.data.userName);
+        this.$router.push("/qanda");
+        // console.log("userData");
+        // console.log(userData);
+        // const userInfo = this.$store.commit("getUserInfo", userData.userEmail);
+        // console.log(userInfo);
+        // console.log("before checking isLogin...");
+        // console.log(this.isUserLogin);
+        // if (this.isUserLogin) {
+        //   console.log("일단 getter는 했다.");
+        //   this.$router.push("/qanda");
+        //   console.log("야호1");
+        // } else {
+        //   this.log = "LOG IN FAILURE";
+        // }
       } catch (error) {
         // 에러 핸들링할 코드
         console.log(error);
-        // console.log(error.response.data);
-        // this.logMessage = error.response.data;
+        console.log(error.response.data);
+        this.logMessage = error.response.data;
       } finally {
         this.initForm();
       }

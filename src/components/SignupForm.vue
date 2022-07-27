@@ -44,7 +44,7 @@
 </template>
 
 <script>
-// import { registerUser } from "@/api/auth";
+import { registerUser } from "@/api/auth";
 import { validateEmail } from "@/utils/validation";
 
 export default {
@@ -70,17 +70,19 @@ export default {
         password: this.password,
         userName: this.userName,
       };
-      // const { data } = await registerUser(userData);
-      // console.log(data.userEmail);
-      // this.logMessage = `${data.userEmail} 님이 가입되었습니다`;
-      // this.$store.getters.setUserEmail(this.userEmail);
-      // this.$store.getters.setPassword(this.password);
-      // this.$store.getters.setuserName(this.userName);
-      this.$store.commit("addUser", userData);
-      console.log(this.userEmail);
-      this.logMessage = `${this.userName} has signed up.`;
-      this.initForm();
-      this.$router.push("/login");
+      try {
+        const { data } = await registerUser(userData);
+        console.log(data);
+        this.logMessage = `${data.userEmail} 님이 가입되었습니다`;
+        // this.$store.commit("addUser", userData);
+        // console.log(this.userEmail);
+        this.logMessage = `${this.userName} has signed up.`;
+        this.initForm();
+        this.$router.push("/login");
+      } catch (error) {
+        this.logMessage = error.response.data;
+        this.initForm();
+      }
     },
     initForm() {
       this.userEmail = "";
