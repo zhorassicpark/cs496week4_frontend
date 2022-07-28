@@ -55,6 +55,7 @@ export default {
       this.questionItems = data.data;
     },
     async search() {
+      if (this.searchWord === "") return;
       this.isLoading = true;
       console.log("searchWord");
       console.log(this.searchWord);
