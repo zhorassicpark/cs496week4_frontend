@@ -1,10 +1,9 @@
 <template>
   <div class="contents block">
-    ㄴ
+    <h1>ㄴ</h1>
     <li>
       <div class="block">
         <div class="author">
-          by
           <span class="orange">{{ qCommentItem.userName }}</span
           >&nbsp;
           <span style="font-size: x-small"
@@ -108,11 +107,12 @@ h1 {
 }
 .contents {
   display: flex;
+  /* flex-direction: row-reverse; */
   position: relative;
   flex-grow: 1;
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
+  width: 90%;
   margin: 7px;
   padding: 10px 20px;
   /* background: white; */
@@ -121,6 +121,7 @@ h1 {
   box-shadow: 0 20px 20px rgba(0, 0, 0, 0.08);
   border-radius: 3px;
 }
+
 .block {
   overflow: hidden;
   /* padding: 10px; */
@@ -134,7 +135,8 @@ pre {
   margin: 0px;
 }
 li {
-  width: 1000px;
+  width: 100%;
+  float: right;
 }
 /* template {
   background-color: #7d8583;

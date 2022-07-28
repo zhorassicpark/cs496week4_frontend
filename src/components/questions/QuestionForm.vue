@@ -1,33 +1,44 @@
 <template>
-  <div class="contents block">
-    <div class="block">
-      <div>
-        Likes: {{ numLike }} User Liked It : {{ userLikedIt }}
-        <button @click="toggleLikeQuestion">toggleLike</button>
+  <div class="topdiv">
+    <div
+      class="num-like"
+      :class="{ userLikedIt: userLikedIt }"
+      @click="toggleLikeQuestion"
+    >
+      <div class="ranking"><h4 class="ranking">^</h4></div>
+      <div class="ranking">
+        {{ numLike }}
       </div>
-      <div>
-        <h1>
-          {{ title }}
-        </h1>
-      </div>
-      <div class="author">
-        Asked by
-        <span class="orange">{{ userName }}</span
-        >&nbsp;
-        <span style="font-size: x-small">at &nbsp;&nbsp;{{ createdDate }}</span>
-      </div>
+      <div class="ranking">v</div>
     </div>
-    <!-- <div>
+    <div class="contents block">
+      <div v-if="userEmail === $store.getters.getUserEmail" class="edit">
+        <i class="icon ion-md-create" @click="routeEditPage"></i>
+        <i class="icon ion-md-trash" @click="deleteItem"></i>
+      </div>
+      <div class="block">
+        <div>
+          <h1>
+            {{ title }}
+          </h1>
+        </div>
+        <div class="author">
+          Asked by
+          <span class="orange">{{ userName }}</span
+          >&nbsp;
+          <span style="font-size: x-small"
+            >at &nbsp;&nbsp;{{ createdDate }}</span
+          >
+        </div>
+      </div>
+      <!-- <div>
       ===================================================================================
     </div> -->
-    <div class="text-container block">
-      <pre>{{ content }}</pre>
+      <div class="text-container block">
+        <pre>{{ content }}</pre>
+      </div>
+      <button @click="addComment" class="btn">Add Comment</button>
     </div>
-    <div v-if="userEmail === $store.getters.getUserEmail" class="edit">
-      <i class="icon ion-md-create" @click="routeEditPage"></i>
-      <i class="icon ion-md-trash" @click="deleteItem"></i>
-    </div>
-    <button @click="addComment">Add Comment</button>
   </div>
 </template>
 
@@ -74,8 +85,8 @@ export default {
     // },
     async deleteItem() {
       if (confirm("You want to delete it?")) {
-        await deleteQuestion(this.questionItem.id);
-        this.$emit("refresh");
+        await deleteQuestion(this.id);
+        this.$router.push("/qanda");
       }
     },
     routeEditPage() {
@@ -118,6 +129,12 @@ export default {
 </script>
 
 <style scoped>
+.userLikedIt {
+  color: #fe9616;
+}
+.topdiv {
+  display: flex;
+}
 h1 {
   text-align: left;
   font-weight: 100;
@@ -134,6 +151,9 @@ h1 {
 }
 .btn {
   color: white;
+  height: 30px;
+  font-size: 50%;
+  float: right;
 }
 .text-container {
   margin: 5px;
@@ -160,12 +180,30 @@ h1 {
 }
 .block {
   overflow: hidden;
-  padding: 10px;
-  margin-top: 10px;
+  /* padding: 10px; */
+  /* margin-top: 10px; */
   height: auto;
   background-color: #f9f9f9;
 }
 pre {
   margin: 0px;
+}
+.num-like {
+  cursor: pointer;
+  vertical-align: middle;
+  text-align: center;
+  /* margin-top: 20px; */
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 20px;
+  /* margin: 0px; */
+}
+.ranking {
+  vertical-align: middle;
+  text-align: center;
+  /* margin-top: 20px; */
+  margin-top: 0px;
+  margin-bottom: 0px;
+  /* margin: 0px; */
 }
 </style>

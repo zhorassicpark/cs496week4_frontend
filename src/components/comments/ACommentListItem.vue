@@ -1,6 +1,6 @@
 <template>
   <div class="contents block">
-    ㄴ
+    <h1>ㄴ</h1>
     <li>
       <div class="block">
         <div class="author">
@@ -112,7 +112,7 @@ h1 {
   flex-grow: 1;
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
+  width: 90%;
   margin: 7px;
   padding: 10px 20px;
   /* background: white; */

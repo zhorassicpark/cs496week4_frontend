@@ -18,6 +18,22 @@
           </p>
         </div>
         <button type="submit" class="btn">Create</button>
+        <div>
+          Save Answer and Use IDE???
+          <button type="button" @click="submitWithPythonIDE" class="btn">
+            Python
+          </button>
+          <button type="button" @click="submitWithJavaIDE" class="btn">
+            Java
+          </button>
+          <button type="button" @click="submitWithNodeIDE" class="btn">
+            Node
+          </button>
+          <button type="button" @click="submitWithCIDE" class="btn">C</button>
+          <button type="button" @click="submitWithRubyIDE" class="btn">
+            Ruby
+          </button>
+        </div>
       </form>
       <p class="log">
         {{ logMessage }}
@@ -28,6 +44,8 @@
 
 <script>
 import { createAnswer } from "@/api/answers";
+import axios from "axios";
+import { fetchQuestion } from "@/api/questions";
 
 export default {
   data() {
@@ -59,6 +77,161 @@ export default {
         console.log(error.response.data.message);
         this.logMessage = error.response.data.message;
       }
+    },
+    async submitWithPythonIDE() {
+      let response;
+      try {
+        response = await createAnswer({
+          title: this.title,
+          content: this.content,
+          createdDate: new Date(),
+          userId: this.$store.getters.getUserEmail,
+          questionId: this.$route.params.id,
+        });
+        this.$router.push(`/question/${this.$route.params.id}`);
+        console.log(response);
+      } catch (error) {
+        console.log(error.response.data.message);
+        this.logMessage = error.response.data.message;
+      }
+      const instance = axios.create({
+        // baseURL: process.env.VUE_APP_API_URL,
+        baseURL: this.$store.state.dockerurl,
+      });
+      const question = await fetchQuestion(response.data.data.questionId);
+      instance.post("compiler/compile", {
+        imageId: question.imageId,
+        tagId: question.tagId,
+        language: "python",
+        questionId: question.id,
+        answerId: response.data.data.id,
+      });
+      window.open(this.$store.state.ideurl);
+      // this.submitForm();
+    },
+    async submitWithJavaIDE() {
+      let response;
+      try {
+        response = await createAnswer({
+          title: this.title,
+          content: this.content,
+          createdDate: new Date(),
+          userId: this.$store.getters.getUserEmail,
+          questionId: this.$route.params.id,
+        });
+        this.$router.push(`/question/${this.$route.params.id}`);
+        console.log(response);
+      } catch (error) {
+        console.log(error.response.data.message);
+        this.logMessage = error.response.data.message;
+      }
+      const instance = axios.create({
+        // baseURL: process.env.VUE_APP_API_URL,
+        baseURL: this.$store.state.dockerurl,
+      });
+      const question = await fetchQuestion(response.data.data.questionId);
+      instance.post("compiler/compile", {
+        imageId: question.imageId,
+        tagId: question.tagId,
+        language: "java",
+        questionId: question.id,
+        answerId: response.data.data.id,
+      });
+      window.open(this.$store.state.ideurl);
+      // this.submitForm();
+    },
+    async submitWithNodeIDE() {
+      let response;
+      try {
+        response = await createAnswer({
+          title: this.title,
+          content: this.content,
+          createdDate: new Date(),
+          userId: this.$store.getters.getUserEmail,
+          questionId: this.$route.params.id,
+        });
+        this.$router.push(`/question/${this.$route.params.id}`);
+        console.log(response);
+      } catch (error) {
+        console.log(error.response.data.message);
+        this.logMessage = error.response.data.message;
+      }
+      const instance = axios.create({
+        // baseURL: process.env.VUE_APP_API_URL,
+        baseURL: this.$store.state.dockerurl,
+      });
+      const question = await fetchQuestion(response.data.data.questionId);
+      instance.post("compiler/compile", {
+        imageId: question.imageId,
+        tagId: question.tagId,
+        language: "node",
+        questionId: question.id,
+        answerId: response.data.data.id,
+      });
+      window.open(this.$store.state.ideurl);
+      // this.submitForm();
+    },
+    async submitWithCIDE() {
+      let response;
+      try {
+        response = await createAnswer({
+          title: this.title,
+          content: this.content,
+          createdDate: new Date(),
+          userId: this.$store.getters.getUserEmail,
+          questionId: this.$route.params.id,
+        });
+        this.$router.push(`/question/${this.$route.params.id}`);
+        console.log(response);
+      } catch (error) {
+        console.log(error.response.data.message);
+        this.logMessage = error.response.data.message;
+      }
+      const instance = axios.create({
+        // baseURL: process.env.VUE_APP_API_URL,
+        baseURL: this.$store.state.dockerurl,
+      });
+      const question = await fetchQuestion(response.data.data.questionId);
+      instance.post("compiler/compile", {
+        imageId: question.imageId,
+        tagId: question.tagId,
+        language: "c",
+        questionId: question.id,
+        answerId: response.data.data.id,
+      });
+      window.open(this.$store.state.ideurl);
+      // this.submitForm();
+    },
+    async submitWithRubyIDE() {
+      let response;
+      try {
+        response = await createAnswer({
+          title: this.title,
+          content: this.content,
+          createdDate: new Date(),
+          userId: this.$store.getters.getUserEmail,
+          questionId: this.$route.params.id,
+        });
+        this.$router.push(`/question/${this.$route.params.id}`);
+        console.log(response);
+      } catch (error) {
+        console.log(error.response.data.message);
+        this.logMessage = error.response.data.message;
+      }
+      const instance = axios.create({
+        // baseURL: process.env.VUE_APP_API_URL,
+        baseURL: this.$store.state.dockerurl,
+      });
+      const question = await fetchQuestion(response.data.data.questionId);
+      instance.post("compiler/compile", {
+        imageId: question.imageId,
+        tagId: question.tagId,
+        language: "ruby",
+        questionId: question.id,
+        answerId: response.data.data.id,
+      });
+      window.open(this.$store.state.ideurl);
+      // this.submitForm();
     },
   },
 };

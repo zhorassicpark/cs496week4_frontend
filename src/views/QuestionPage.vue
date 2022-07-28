@@ -6,8 +6,11 @@
       <!-- <div></div>
       <QCommentListItem></QCommentListItem>
       <i class="fa-solid fa-arrow-turn-down-right"></i> -->
-      <QuestionForm @addQComment="addQCommentStart"></QuestionForm>
-      <ul>
+      <QuestionForm
+        @addQComment="addQCommentStart"
+        class="question"
+      ></QuestionForm>
+      <ul class="commentlist">
         <QCommentListItem
           v-for="qCommentItem in qCommentItems"
           :key="qCommentItem.id"
@@ -21,26 +24,29 @@
           @refresh="fetchData"
         ></QCommentAddForm>
       </ul>
+      =============================================================================================================
       <!-- <div> -->
       <LoadingSpinner v-if="isLoading"></LoadingSpinner>
-      <ul v-else>
-        <span v-for="item in itemList" :key="item.answerItem.id">
+      <ul v-else class="answerlist">
+        <span v-for="item in itemList" :key="item.answerItem.id" class="answer">
           <AnswerListItem
             :answerItem="item.answerItem"
             @addComment="addACommentStart"
           ></AnswerListItem>
-          <ACommentListItem
-            v-for="aComment in item.aCommentList"
-            :key="aComment.id"
-            :aCommentItem="aComment"
-            @refresh="fetchData"
-          ></ACommentListItem>
-          <ACommentAddForm
-            v-if="item.addACommentBtnClicked"
-            :answerItem="item.answerItem"
-            @addCommentFinished="addACommentEnd"
-            @refresh="fetchData"
-          ></ACommentAddForm>
+          <ul class="acommentlist">
+            <ACommentListItem
+              v-for="aComment in item.aCommentList"
+              :key="aComment.id"
+              :aCommentItem="aComment"
+              @refresh="fetchData"
+            ></ACommentListItem>
+            <ACommentAddForm
+              v-if="item.addACommentBtnClicked"
+              :answerItem="item.answerItem"
+              @addCommentFinished="addACommentEnd"
+              @refresh="fetchData"
+            ></ACommentAddForm>
+          </ul>
         </span>
       </ul>
       <!-- </div> -->
@@ -143,14 +149,50 @@ export default {
 </script>
 
 <style scoped>
+/* .commentlist {
+  display: flex;
+  flex-direction: row-reverse;
+} */
+.answer {
+  width: 100%;
+}
+.commentlist {
+  width: 52%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.acommentlist {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.answerlist {
+  width: 53%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
 .container {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 .li-container {
+  width: 100%;
+  /* margin-right: auto;
+  margin-left: auto; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.question {
   width: 1000px;
-  margin-right: auto;
-  margin-left: auto;
+}
+.fullwidth {
+  width: 100%;
+  display: inline-block;
+  /* align-items: center; */
 }
 </style>

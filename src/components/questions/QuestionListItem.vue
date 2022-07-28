@@ -1,6 +1,10 @@
 <template>
   <li @click="moveToQuestion">
-    {{ questionItem.numLike }}
+    <div class="num-like">
+      <div class="ranking"><h4 class="ranking">^</h4></div>
+      <div class="ranking">{{ questionItem.numLike }}</div>
+      <div class="ranking">v</div>
+    </div>
     <div class="post-title">
       {{ questionItem.title }}
       <span class="author">
@@ -57,5 +61,32 @@ export default {
 .author {
   font-size: small;
   float: right;
+  text-align: right;
+}
+li {
+  cursor: pointer;
+  display: flex;
+  vertical-align: middle;
+}
+.num-like {
+  vertical-align: middle;
+  text-align: center;
+  /* margin-top: 20px; */
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 20px;
+  /* margin: 0px; */
+}
+.ranking {
+  vertical-align: middle;
+  text-align: center;
+  /* margin-top: 20px; */
+  margin-top: 0px;
+  margin-bottom: 0px;
+  /* margin: 0px; */
+}
+.post-title {
+  margin-top: 20px;
+  width: 1000px;
 }
 </style>

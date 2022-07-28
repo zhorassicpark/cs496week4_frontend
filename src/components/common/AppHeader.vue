@@ -3,16 +3,16 @@
     <div>
       <router-link :to="logoLink" class="logo">
         QUEUE OVERFLOW
-        <span v-if="isUserLogin">by 악깡버!</span>
+        <span v-if="isUserLogin">by 악 ! 깡 ! 버 !</span>
       </router-link>
     </div>
     <div class="navigations">
       <!-- 1 -->
       <template v-if="isUserLogin">
         <a href="javascript:;" @click="logoutUser" class="logout-button">
-          LOG OUT
+          <h2 class="inline">LOG OUT</h2>
         </a>
-        &nbsp;|&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;
         <router-link to="/QandA">Q & A</router-link>
       </template>
       <!-- 2 -->
@@ -62,6 +62,9 @@ export default {
 </script>
 
 <style scoped>
+.inline {
+  display: inline;
+}
 .username {
   color: white;
 }

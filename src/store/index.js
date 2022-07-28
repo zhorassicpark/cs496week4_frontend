@@ -28,6 +28,8 @@ export default new Vuex.Store({
     userEmail: "",
     password: "",
     userName: "",
+    ideurl: "http://143.248.164.144:8000/",
+    dockerurl: "http://192.249.18.210:80/",
     // userList: [
     //   {
     //     userEmail: "a@naver.com",
@@ -38,7 +40,7 @@ export default new Vuex.Store({
   },
   getters: {
     isLogin(state) {
-      return state.userEmail !== "";
+      return state.userEmail !== "" && state.userEmail !== null;
     },
     getUserEmail(state) {
       return state.userEmail;

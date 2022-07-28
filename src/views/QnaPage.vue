@@ -8,7 +8,7 @@
           type="text"
           v-model="searchWord"
           placeholder="input search word..."
-        /><button type="submit">SEARCH</button>
+        /><button type="submit" class="btn">SEARCH</button>
       </form>
       <LoadingSpinner v-if="isLoading"></LoadingSpinner>
       <ul v-else>
@@ -79,5 +79,11 @@ export default {
 }
 .inputform {
   /* width: 100%; */
+  /* align-items: center; */
+}
+.btn {
+  color: white;
+  height: 30px;
+  font-size: 50%;
 }
 </style>

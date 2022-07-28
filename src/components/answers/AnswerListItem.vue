@@ -1,12 +1,24 @@
 <template>
-  <div class="block">
-    <li>
-      <div class="block">
-        <div>
-          Likes: {{ answerItem.numLike }} User Liked It : {{ userLikedIt }}
-          <button @click="toggleLikeAnswer">toggleLike</button>
+  <div class="topdiv">
+    <div
+      class="num-like"
+      :class="{ userLikedIt: userLikedIt }"
+      @click="toggleLikeAnswer"
+    >
+      <div class="ranking"><h4 class="ranking">^</h4></div>
+      <div class="ranking">{{ answerItem.numLike }}</div>
+      <div class="ranking">v</div>
+    </div>
+    <div class="contents block">
+      <li>
+        <div
+          v-if="answerItem.userEmail === $store.getters.getUserEmail"
+          class="edit"
+        >
+          <i class="icon ion-md-create" @click="routeEditPage"></i>
+          <i class="icon ion-md-trash" @click="deleteItem"></i>
         </div>
-        <div>
+        <div class="block">
           <h1>
             {{ answerItem.title }}
           </h1>
@@ -19,28 +31,27 @@
             >at &nbsp;&nbsp;{{ answerItem.createdDate }}</span
           >
         </div>
-      </div>
-      <div class="text-container block">
-        <pre>{{ answerItem.content }}</pre>
-      </div>
-      <!-- <TestTest></TestTest>
+        <div class="text-container block">
+          <pre>{{ answerItem.content }}</pre>
+        </div>
+        <!-- <TestTest></TestTest>
       <i class="fa-solid fa-arrow-turn-down-right"></i>
       <QCommentListItem></QCommentListItem> -->
-      <div
-        v-if="answerItem.userEmail === $store.getters.getUserEmail"
-        class="edit"
-      >
-        <i class="icon ion-md-create" @click="routeEditPage"></i>
-        <i class="icon ion-md-trash" @click="deleteItem"></i>
-      </div>
-      <button @click="addComment">Add Comment</button>
-    </li>
+        <div>
+          <button class="btn" @click="addComment">Add Comment</button>
+        </div>
+        <button v-if="answerItem.imageId != null" @click="viewIDEAnswer">
+          View Answer's IDE
+        </button>
+      </li>
+    </div>
   </div>
 </template>
 
 <script>
 import { deleteAnswer } from "@/api/answers";
 import { getLikeAnswerApi, toggleLikeAnswerApi } from "@/api/likes";
+import axios from "axios";
 // import { QCommentListItem } from "@/components/comments/QCommentListItem";
 // import { TestTest } from "@/components/comments/TestTest";
 
@@ -98,6 +109,18 @@ export default {
       this.$router.go();
       this.$emit("refresh");
     },
+    async viewIDEAnswer() {
+      const instance = axios.create({
+        // baseURL: process.env.VUE_APP_API_URL,
+        baseURL: this.$store.state.dockerurl,
+      });
+      instance.post("compiler/compile", {
+        imageId: this.answerItem.imageId,
+        tagId: this.answerItem.tagId,
+        language: this.answerItem.language,
+      });
+      window.open(this.$store.state.ideurl);
+    },
   },
   async created() {
     const { data } = await getLikeAnswerApi(
@@ -121,6 +144,13 @@ export default {
 </script>
 
 <style scoped>
+.userLikedIt {
+  color: #fe9616;
+}
+.topdiv {
+  width: 100%;
+  display: flex;
+}
 h1 {
   text-align: left;
   font-weight: 100;
@@ -136,6 +166,9 @@ h1 {
 }
 .btn {
   color: white;
+  height: 30px;
+  font-size: 50%;
+  float: right;
 }
 .text-container {
   margin: 5px;
@@ -152,7 +185,7 @@ h1 {
   flex-grow: 1;
   margin-left: auto;
   margin-right: auto;
-  width: 100%;
+  width: 1000px;
   margin: 7px;
   padding: 10px 20px;
   background: white;
@@ -161,12 +194,31 @@ h1 {
 }
 .block {
   overflow: hidden;
-  padding: 10px;
-  margin-top: 10px;
+  /* padding: 10px; */
+  /* margin-top: 10px; */
   height: auto;
+  width: 100%;
   background-color: #f9f9f9;
 }
 pre {
   margin: 0px;
+}
+.num-like {
+  cursor: pointer;
+  vertical-align: middle;
+  text-align: center;
+  /* margin-top: 20px; */
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 20px;
+  /* margin: 0px; */
+}
+.ranking {
+  vertical-align: middle;
+  text-align: center;
+  /* margin-top: 20px; */
+  margin-top: 0px;
+  margin-bottom: 0px;
+  /* margin: 0px; */
 }
 </style>
