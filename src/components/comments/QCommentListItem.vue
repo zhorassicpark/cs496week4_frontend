@@ -98,8 +98,8 @@ h1 {
   color: white;
 }
 .text-container {
-  /* margin: 5px;
-  padding: 5px; */
+  margin: 0px;
+  padding: 0px;
   border: 3px solid #7d8583;
   border-radius: 5px;
 }
@@ -123,8 +123,8 @@ h1 {
 }
 .block {
   overflow: hidden;
-  padding: 10px;
-  margin-top: 10px;
+  /* padding: 10px; */
+  /* margin-top: 10px; */
   height: auto;
   /* background-color: #f9f9f9; */
   background-color: #7d8583;
@@ -133,8 +133,8 @@ h1 {
 pre {
   margin: 0px;
 }
-.li {
-  width: 80%;
+li {
+  width: 1000px;
 }
 /* template {
   background-color: #7d8583;

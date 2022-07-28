@@ -14,6 +14,10 @@ import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
   components: {
     HelloWorld,
   },
+  created() {
+    this.$store.commit("setUserEmail", localStorage.getItem("userEmail"));
+    this.$store.commit("setUserName", localStorage.getItem("userName"));
+  },
 })
 export default class HomeView extends Vue {}
 </script>

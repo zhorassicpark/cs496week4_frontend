@@ -46,6 +46,8 @@ export default {
         this.$store.commit("clearUserEmail");
         this.$store.commit("clearPassword");
         this.$store.commit("clearUserName");
+        localStorage.setItem("userEmail", "");
+        localStorage.setItem("userName", "");
         // this.$store.commit("clearUsername");
         // this.$store.commit("clearToken");
         // deleteCookie("til_auth");

@@ -2,6 +2,14 @@
   <div class="about">
     <div class="main list-container contents">
       <h1 class="page-header">Q & A BOARD</h1>
+      <form class="inputform" @submit.prevent="search">
+        <input
+          class="input"
+          type="text"
+          v-model="searchWord"
+          placeholder="input search word..."
+        /><button type="submit">SEARCH</button>
+      </form>
       <LoadingSpinner v-if="isLoading"></LoadingSpinner>
       <ul v-else>
         <QuestionListItem
@@ -21,7 +29,7 @@
 <script>
 import QuestionListItem from "@/components/questions/QuestionListItem";
 import LoadingSpinner from "@/components/common/LoadingSpinner.vue";
-import { fetchQuestions } from "@/api/questions";
+import { fetchQuestions, fetchQuestionWithSearchWord } from "@/api/questions";
 
 export default {
   components: {
@@ -32,6 +40,7 @@ export default {
     return {
       questionItems: [],
       isLoading: false,
+      searchWord: "",
     };
   },
   methods: {
@@ -45,11 +54,29 @@ export default {
       this.isLoading = false;
       this.questionItems = data.data;
     },
+    async search() {
+      this.isLoading = true;
+      console.log("searchWord");
+      console.log(this.searchWord);
+      const { data } = await fetchQuestionWithSearchWord(this.searchWord);
+      this.isLoading = false;
+      this.questionItems = data.data;
+    },
   },
   created() {
+    this.$store.commit("setUserEmail", localStorage.getItem("userEmail"));
+    this.$store.commit("setUserName", localStorage.getItem("userName"));
     this.fetchData();
   },
 };
 </script>
 
-<style></style>
+<style scoped>
+.input {
+  border: solid;
+  width: 90%;
+}
+.inputform {
+  /* width: 100%; */
+}
+</style>

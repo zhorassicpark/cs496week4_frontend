@@ -65,6 +65,8 @@ export default {
         console.log(data);
         this.$store.commit("setUserEmail", data.data.userEmail);
         this.$store.commit("setUserName", data.data.userName);
+        localStorage.setItem("userEmail", data.data.userEmail);
+        localStorage.setItem("userName", data.data.userName);
         this.$router.push("/qanda");
         // console.log("userData");
         // console.log(userData);

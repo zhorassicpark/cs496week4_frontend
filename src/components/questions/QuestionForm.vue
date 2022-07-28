@@ -2,6 +2,10 @@
   <div class="contents block">
     <div class="block">
       <div>
+        Likes: {{ numLike }} User Liked It : {{ userLikedIt }}
+        <button @click="toggleLikeQuestion">toggleLike</button>
+      </div>
+      <div>
         <h1>
           {{ title }}
         </h1>
@@ -29,6 +33,7 @@
 
 <script>
 import { deleteQuestion, fetchQuestion } from "@/api/questions";
+import { toggleLikeQuestionApi, getLikeQuestionApi } from "@/api/likes";
 // import { QCommentListItem } from "@/components/comments/QCommentListItem.vue";
 
 export default {
@@ -41,8 +46,10 @@ export default {
       title: "",
       content: "",
       createdDate: "",
+      numLike: "",
       userEmail: "",
       userName: "",
+      userLikedIt: "",
       logMessage: "",
     };
   },
@@ -78,6 +85,14 @@ export default {
       console.log("ADD QCOMMENT");
       this.$emit("addQComment");
     },
+    async toggleLikeQuestion() {
+      await toggleLikeQuestionApi(
+        this.$store.getters.getUserEmail,
+        this.$route.params.id
+      );
+      this.$router.go();
+      this.$emit("refresh");
+    },
   },
   async created() {
     this.id = this.$route.params.id;
@@ -85,8 +100,19 @@ export default {
     this.title = data.data.title;
     this.content = data.data.content;
     this.createdDate = data.data.createdDate;
+    this.numLike = data.data.numLike;
     this.userEmail = data.data.userEmail;
     this.userName = data.data.userName;
+    const { data: data2 } = await getLikeQuestionApi(
+      this.$store.getters.getUserEmail,
+      this.$route.params.id
+    );
+    console.log(data2);
+    if (data2.data == null) {
+      this.userLikedIt = false;
+    } else {
+      this.userLikedIt = true;
+    }
   },
 };
 </script>

@@ -11,6 +11,11 @@ function fetchQuestion(questionId) {
   return instance.get(`question/${questionId}`);
 }
 
+// 특정 검색어를 포함하는 질문을 조회하는 API
+function fetchQuestionWithSearchWord(searchWord) {
+  return instance.get(`question/list/search/${searchWord}`);
+}
+
 // 질문 데이터를 생성하는 API
 function createQuestion(questionData) {
   return instance.post("question", questionData);
@@ -28,6 +33,7 @@ function editQuestion(questionId, questionData) {
 
 export {
   fetchQuestions,
+  fetchQuestionWithSearchWord,
   fetchQuestion,
   createQuestion,
   deleteQuestion,

@@ -11,6 +11,10 @@ export default {
   components: {
     QuestionEditForm,
   },
+  created() {
+    this.$store.commit("setUserEmail", localStorage.getItem("userEmail"));
+    this.$store.commit("setUserName", localStorage.getItem("userName"));
+  },
 };
 </script>
 

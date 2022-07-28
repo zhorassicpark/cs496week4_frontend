@@ -1,5 +1,6 @@
 <template>
   <li @click="moveToQuestion">
+    {{ questionItem.numLike }}
     <div class="post-title">
       {{ questionItem.title }}
       <span class="author">

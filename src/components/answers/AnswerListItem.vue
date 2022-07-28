@@ -3,6 +3,10 @@
     <li>
       <div class="block">
         <div>
+          Likes: {{ answerItem.numLike }} User Liked It : {{ userLikedIt }}
+          <button @click="toggleLikeAnswer">toggleLike</button>
+        </div>
+        <div>
           <h1>
             {{ answerItem.title }}
           </h1>
@@ -36,6 +40,7 @@
 
 <script>
 import { deleteAnswer } from "@/api/answers";
+import { getLikeAnswerApi, toggleLikeAnswerApi } from "@/api/likes";
 // import { QCommentListItem } from "@/components/comments/QCommentListItem";
 // import { TestTest } from "@/components/comments/TestTest";
 
@@ -58,6 +63,7 @@ export default {
       // createdDate: "",
       // userEmail: "",
       // userName: "",
+      userLikedIt: "",
       logMessage: "",
     };
   },
@@ -84,16 +90,33 @@ export default {
     addComment() {
       this.$emit("addComment", this.answerItem.id);
     },
+    async toggleLikeAnswer() {
+      await toggleLikeAnswerApi(
+        this.$store.getters.getUserEmail,
+        this.answerItem.id
+      );
+      this.$router.go();
+      this.$emit("refresh");
+    },
   },
-  // async created() {
-  //   this.id = this.$route.params.id;
-  //   const { data } = await fetchQuestion(this.id);
-  //   this.title = data.data.title;
-  //   this.content = data.data.content;
-  //   this.createdDate = data.data.createdDate;
-  //   this.userEmail = data.data.userEmail;
-  //   this.userName = data.data.userName;
-  // },
+  async created() {
+    const { data } = await getLikeAnswerApi(
+      this.$store.getters.getUserEmail,
+      this.answerItem.id
+    );
+    if (data.data == null) {
+      this.userLikedIt = false;
+    } else {
+      this.userLikedIt = true;
+    }
+    //   this.id = this.$route.params.id;
+    //   const { data } = await fetchQuestion(this.id);
+    //   this.title = data.data.title;
+    //   this.content = data.data.content;
+    //   this.createdDate = data.data.createdDate;
+    //   this.userEmail = data.data.userEmail;
+    //   this.userName = data.data.userName;
+  },
 };
 </script>
 
