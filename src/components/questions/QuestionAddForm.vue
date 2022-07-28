@@ -93,7 +93,8 @@ export default {
         baseURL: this.$store.state.dockerurl,
       });
       instance.post("compiler/compile", {
-        imageId: "fee6eb90-0e37-11ed-9553-ab913a6707e5",
+        imageId: null,
+        tagId: null,
         language: "python",
         questionId: response.data.data.id,
       });
@@ -120,6 +121,8 @@ export default {
         baseURL: this.$store.state.dockerurl,
       });
       instance.post("compiler/compile", {
+        imageId: null,
+        tagId: null,
         language: "java",
         questionId: response.data.data.id,
       });
@@ -146,6 +149,8 @@ export default {
         baseURL: this.$store.state.dockerurl,
       });
       instance.post("compiler/compile", {
+        imageId: null,
+        tagId: null,
         language: "node",
         questionId: response.data.data.id,
       });
@@ -172,6 +177,8 @@ export default {
         baseURL: this.$store.state.dockerurl,
       });
       instance.post("compiler/compile", {
+        imageId: null,
+        tagId: null,
         language: "c",
         questionId: response.data.data.id,
       });
@@ -198,6 +205,8 @@ export default {
         baseURL: this.$store.state.dockerurl,
       });
       instance.post("compiler/compile", {
+        imageId: null,
+        tagId: null,
         language: "ruby",
         questionId: response.data.data.id,
       });

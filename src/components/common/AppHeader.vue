@@ -12,13 +12,16 @@
         <a href="javascript:;" @click="logoutUser" class="logout-button">
           <h2 class="inline">LOG OUT</h2>
         </a>
-        &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;
-        <router-link to="/QandA">Q & A</router-link>
+        &nbsp;&nbsp;&nbsp;|&nbsp;
+        <router-link to="/QandA"><h3 class="inline">Q & A</h3></router-link>
       </template>
       <!-- 2 -->
       <template v-else>
-        <router-link to="/login"> LOG IN </router-link>
-        <router-link to="/signup"> SIGN UP </router-link>
+        <router-link to="/login"> <h3 class="inline">LOG IN</h3> </router-link>
+        &nbsp;&nbsp;|
+        <router-link to="/signup">
+          <h3 class="inline">SIGN UP</h3>
+        </router-link>
       </template>
     </div>
   </header>
