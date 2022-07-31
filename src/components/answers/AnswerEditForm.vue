@@ -92,7 +92,10 @@ export default {
         questionId: this.$route.params.questionId,
         answerId: this.$route.params.answerId,
       });
-      window.open(this.$store.state.ideurl);
+      await setTimeout(() => {
+        window.open(this.$store.state.ideurl);
+        console.log("after");
+      }, 3000);
       // this.submitForm();
     },
   },

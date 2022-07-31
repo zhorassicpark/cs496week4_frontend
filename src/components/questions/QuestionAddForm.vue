@@ -98,7 +98,11 @@ export default {
         language: "python",
         questionId: response.data.data.id,
       });
-      window.open(this.$store.state.ideurl);
+      await setTimeout(() => {
+        window.open(this.$store.state.ideurl);
+        console.log("after");
+      }, 3000);
+
       // this.submitForm();
     },
     async submitWithJavaIDE() {
@@ -126,6 +130,7 @@ export default {
         language: "java",
         questionId: response.data.data.id,
       });
+      await setTimeout(() => console.log("after"), 3000);
       window.open(this.$store.state.ideurl);
       // this.submitForm();
     },
@@ -154,7 +159,10 @@ export default {
         language: "node",
         questionId: response.data.data.id,
       });
-      window.open(this.$store.state.ideurl);
+      await setTimeout(() => {
+        window.open(this.$store.state.ideurl);
+        console.log("after");
+      }, 3000);
       // this.submitForm();
     },
     async submitWithCIDE() {
@@ -182,7 +190,10 @@ export default {
         language: "c",
         questionId: response.data.data.id,
       });
-      window.open(this.$store.state.ideurl);
+      await setTimeout(() => {
+        window.open(this.$store.state.ideurl);
+        console.log("after");
+      }, 3000);
       // this.submitForm();
     },
     async submitWithRubyIDE() {
@@ -210,7 +221,10 @@ export default {
         language: "ruby",
         questionId: response.data.data.id,
       });
-      window.open(this.$store.state.ideurl);
+      await setTimeout(() => {
+        window.open(this.$store.state.ideurl);
+        console.log("after");
+      }, 3000);
       // this.submitForm();
     },
   },

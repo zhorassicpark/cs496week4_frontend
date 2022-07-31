@@ -106,7 +106,10 @@ export default {
         questionId: question.id,
         answerId: response.data.data.id,
       });
-      window.open(this.$store.state.ideurl);
+      await setTimeout(() => {
+        window.open(this.$store.state.ideurl);
+        console.log("after");
+      }, 3000);
       // this.submitForm();
     },
   },

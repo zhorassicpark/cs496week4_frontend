@@ -39,10 +39,14 @@
       <QCommentListItem></QCommentListItem> -->
         <div>
           <button class="btn" @click="addComment">Add Comment</button>
+          <button
+            class="btn"
+            v-if="answerItem.imageId != null"
+            @click="viewIDEAnswer"
+          >
+            View Answer's IDE
+          </button>
         </div>
-        <button v-if="answerItem.imageId != null" @click="viewIDEAnswer">
-          View Answer's IDE
-        </button>
       </li>
     </div>
   </div>
@@ -119,8 +123,40 @@ export default {
         tagId: this.answerItem.tagId,
         language: this.answerItem.language,
       });
-      window.open(this.$store.state.ideurl);
+      await setTimeout(() => {
+        window.open(this.$store.state.ideurl);
+        console.log("after");
+      }, 3000);
     },
+    // async submitAnswerWithIDE() {
+    //   const instance = axios.create({
+    //     // baseURL: process.env.VUE_APP_API_URL,
+    //     baseURL: this.$store.state.dockerurl,
+    //   });
+    //   const { data } = await fetchQuestion(response.data.data.questionId);
+    //   const question = data.data;
+    //   console.log("PIOST");
+    //   console.log(question);
+    //   console.log({
+    //     imageId: question.imageId,
+    //     tagId: null,
+    //     language: question.language,
+    //     questionId: question.id,
+    //     answerId: response.data.data.id,
+    //   });
+    //   instance.post("compiler/compile", {
+    //     imageId: question.imageId,
+    //     tagId: null,
+    //     language: question.language,
+    //     questionId: question.id,
+    //     answerId: response.data.data.id,
+    //   });
+    //   await setTimeout(() => {
+    //     window.open(this.$store.state.ideurl);
+    //     console.log("after");
+    //   }, 3000);
+    //   // this.submitForm();
+    // },
   },
   async created() {
     const { data } = await getLikeAnswerApi(

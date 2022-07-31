@@ -28,8 +28,8 @@ export default new Vuex.Store({
     userEmail: "",
     password: "",
     userName: "",
-    ideurl: "http://192.249.18.210:443/",
-    dockerurl: "http://192.249.18.210:80/",
+    ideurl: "http://172.30.1.16:7999/",
+    dockerurl: "http://172.30.1.16:80/",
     // userList: [
     //   {
     //     userEmail: "a@naver.com",
